@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const Rol = require('../models/rol');
 
 module.exports = {
 
@@ -24,9 +25,10 @@ module.exports = {
             const user = req.body;
             const data = await User.create(user);
 
+            await Rol.create(data.id,1);  //Rol cliente
             return res.status(201).json({
                 success: true,
-                message: 'El registro se realizo correctamente',
+                message: 'El registro se realizo correctamente. Ahora inicia Sesion',
                 data: data.id
             });
 
