@@ -27,9 +27,9 @@ CREATE TABLE users(
 );
 
 
-DROP TABLE IF EXISTS users_has_roles CASCADE;
+DROP TABLE IF EXISTS user_has_roles CASCADE;
 
-CREATE TABLE users_has_roles(
+CREATE TABLE user_has_roles(
 	id_user BIGSERIAL Not NULL,
 	id_rol BIGSERIAL Not NULL,
 	created_at TIMESTAMP(0) NOT NULL,
