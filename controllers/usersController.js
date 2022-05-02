@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
 
 module.exports = {
 
@@ -57,7 +56,7 @@ module.exports = {
             }
 
             if (User.isPasswordMatched(password, myUser.password)) {
-                const token = jwt.sign({id: myUser.id, email: myUser.email}, keys.secretOrKey, {
+                const token = jwt.sign({id: myUser.id, email: myUser.email}, process.env.SECRETKEY, {
                     // expiresIn: (60*60*24) // 1 HORA
                 });
                 const data = {
