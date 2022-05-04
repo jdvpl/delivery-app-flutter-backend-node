@@ -42,3 +42,41 @@ CREATE TABLE user_has_roles(
 INSERT INTO roles (name,route,created_at,updated_at) values ('CLIENTE','client/products/list','2022-05-02 04:39:56','2022-05-02 04:39:56');
 INSERT INTO roles (name,route,created_at,updated_at) values ('RESTAURANTE','restaurant/order/list','2022-05-02 04:39:56','2022-05-02 04:39:56');
 INSERT INTO roles (name,route,created_at,updated_at) values ('REPARTIDOR','delivery/order/list','2022-05-02 04:39:56','2022-05-02 04:39:56');
+
+
+
+
+
+-- consultas
+
+SELECT
+        U.id,
+        U.email,
+        U.name,
+        U.lastname,
+        U.image,
+        U.phone,
+        U.password,
+        U.session_token,
+		json_agg(
+			json_build_object(
+				'id',R.id,
+				'name',R.name,
+				'image',R.image,
+				'route',R.route
+			)
+		) as roles
+    FROM
+        users as U
+	INNER JOIN
+	 user_has_roles as UHR
+	ON
+		UHR.id_user=U.id
+	INNER JOIN
+		roles as R
+	ON
+		R.id=UHR.id_rol
+    WHERE
+        U.email = 'saitama@gmail.com'
+	GROUP by
+	 U.id
